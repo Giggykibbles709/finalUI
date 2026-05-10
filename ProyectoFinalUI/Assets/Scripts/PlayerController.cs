@@ -22,6 +22,12 @@ public class PlayerController : MonoBehaviour
     public bool isExhausted = false; // El jugador no puede correr si está agotado
     public float staminaThreshold = 20f; // Necesita recuperar esto para volver a correr
 
+    [Header("Inventory & Combat")]
+    public int potionCount = 3;
+    public float healAmount = 40f;
+    public bool isWeaponEquipped = false;
+    public GameObject weaponModel;
+
     private CharacterController controller;
     private Vector2 moveInput;
     private bool isSprinting;
@@ -35,6 +41,7 @@ public class PlayerController : MonoBehaviour
         currentHealth = maxHealth;
         currentStamina = maxStamina;
         Cursor.lockState = CursorLockMode.Locked;
+        weaponModel.SetActive(false); // Asegura que el arma esté oculta al inicio
     }
 
     void Update()
@@ -118,6 +125,54 @@ public class PlayerController : MonoBehaviour
         isDead = true;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        GameManager.instance.diePanel.SetActive(true);
+        Time.timeScale = 0f; // Pausa el juego al morir
+    }
+
+    public void OnUsePotion(InputAction.CallbackContext context)
+    {
+        if (!context.started || isDead) return;
+
+        if (potionCount > 0 && currentHealth < maxHealth)
+        {
+            potionCount--;
+            currentHealth = Mathf.Min(currentHealth + healAmount, maxHealth);
+            Debug.Log("Poción usada. Quedan: " + potionCount);
+        }
+    }
+
+    public void OnToggleWeapon(InputAction.CallbackContext context)
+    {
+        if (!context.started || isDead) return;
+
+        isWeaponEquipped = !isWeaponEquipped;
+        if (weaponModel != null) weaponModel.SetActive(isWeaponEquipped);
+
+        Debug.Log(isWeaponEquipped ? "Arma Equipada" : "Arma Guardada");
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (!context.started || isDead || !isWeaponEquipped) return;
+
+        if (currentStamina >= 15f)
+        {
+            currentStamina -= 15f;
+
+            // Creamos una esfera invisible frente al jugador para detectar enemigos
+            float attackHitRange = 2f;
+            Collider[] hitEnemies = Physics.OverlapSphere(transform.position + transform.forward, attackHitRange);
+
+            foreach (Collider enemy in hitEnemies)
+            {
+                if (enemy.CompareTag("Enemy"))
+                {
+                    EnemyAI enemyScript = enemy.GetComponent<EnemyAI>();
+                    if (enemyScript != null)
+                    {
+                        enemyScript.TakeDamage(25f); // Daño del jugador al enemigo
+                    }
+                }
+            }
+        }
     }
 }
