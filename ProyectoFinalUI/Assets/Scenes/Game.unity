@@ -316,6 +316,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2912688572179665772, guid: ad068a72beab7ac4798524118f9c9c43, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4034101224551891058, guid: ad068a72beab7ac4798524118f9c9c43, type: 3}
       propertyPath: health
       value: 200
@@ -995,6 +999,10 @@ PrefabInstance:
     - target: {fileID: 1937036737948960224, guid: ad068a72beab7ac4798524118f9c9c43, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912688572179665772, guid: ad068a72beab7ac4798524118f9c9c43, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7701513119748302949, guid: ad068a72beab7ac4798524118f9c9c43, type: 3}
       propertyPath: m_Name
@@ -1953,6 +1961,10 @@ PrefabInstance:
     - target: {fileID: 1937036737948960224, guid: ad068a72beab7ac4798524118f9c9c43, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912688572179665772, guid: ad068a72beab7ac4798524118f9c9c43, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7701513119748302949, guid: ad068a72beab7ac4798524118f9c9c43, type: 3}
       propertyPath: m_Name
@@ -4423,9 +4435,9 @@ SceneRoots:
   - {fileID: 810175519}
   - {fileID: 2129772023}
   - {fileID: 524227499}
+  - {fileID: 1603242541}
   - {fileID: 318495095}
   - {fileID: 1936096264}
   - {fileID: 6514670610813090549}
   - {fileID: 707616297}
   - {fileID: 557625070}
-  - {fileID: 1603242541}
